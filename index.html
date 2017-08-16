@@ -4,10 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <link rel="shortcut icon" href="img/fav-icon-mostro.png">
+    <title>Mostro Car Game</title>
+    <style>
+        body{
+            margin: 0
+        }
+    </style>
 </head>
 <body>
     <script type="text/javascript" src="js/phaser.js"></script>
-    <script type="text/javascript" src="js/index.js"></script>
+    <script>
+        window.onload = function () {
+            var game = new Phaser.Game(800,600, Phaser.CANVAS, "game")
+            game.state.add("Boot", boot)
+            game.state.add("Preload",preload)
+             game.state.add("GameTitle",gameTitle)
+            game.state.add("TheGame",theGame)
+            game.state.add("GameOver", gameOver) 
+            game.state.start("Boot")
+        }
+    </script>
+    <script type="text/javascript" src="js/boot.js"></script>
+    <script type="text/javascript" src="js/preload.js"></script>
+    <script type="text/javascript" src="js/gametitle.js"></script>
+    <script type="text/javascript" src="js/thegame.js"></script>
+    <script type="text/javascript" src="js/gameover.js"></script>
 </body>
 </html>
