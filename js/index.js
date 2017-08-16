@@ -2,7 +2,7 @@ var game = new Phaser.Game(800,600, Phaser.AUTO, '',{
     preload: preload, create: create, update: update
 })
 
-var platforms, player, cursors
+var platforms, player, cursors, stars, score = 0, scoreText
 
 function preload(){
 		game.load.image('sky', '../img/assets/sky.png')
@@ -42,13 +42,25 @@ function create(){
 
 	cursors = game.input.keyboard.createCursorKeys()
 
+	stars = game.add.group()
+	stars.enableBody = true
+
+	for(var i= 0; i<12; i++){
+		var star = stars.create(i * 70,0,'star')
+		star.body.gravity.y = 300
+		star.body.bounce.y = 0.7 + Math.random() * 0.2
+	}
+
+	scoreText = game.add.text(16,16, 'score: 0', { fontSize: '32px', fill: '#000'})
+
 }
 function update(){
-	var hitPlatform = game.physics.arcade.collide(player,platforms)
+	game.physics.arcade.collide(player,platforms)
+	game.physics.arcade.collide(stars,platforms)
+
+	game.physics.arcade.overlap(player,stars,collectStar,null,this)
 
 	player.body.velocity.x = 0
-
-	console.log(cursors.left)
 
 	if(cursors.left.isDown){
 		player.body.velocity.x = -150
@@ -64,4 +76,10 @@ function update(){
 	if(cursors.up.isDown && player.body.touching.down){
 		player.body.velocity.y = -350
 	}
+}
+
+function collectStar(player,star){
+	star.kill()
+	score += 10
+	scoreText.text = 'Score: ' + score
 }
