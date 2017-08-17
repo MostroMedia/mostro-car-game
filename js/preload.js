@@ -1,13 +1,20 @@
-var preload = function (game) {
-    console.log("hola from preload")
-}
+var preload = function (game) {}
+
 preload.prototype = {
     preload: function(){
-        this.game.load.image('sky','../img/assets/sky.png')
-        this.game.load.image('star','../img/assets/star.png')
+        this.preloadBar=this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'preloadbar');
+        this.preloadBar.anchor.setTo(0.5)
+        this.load.setPreloadSprite(this.preloadBar)
+
+        this.load.image('sky','../img/assets/sky.png')
+        this.load.image('playButton', '../img/assets/start-button.png')
+        this.load.image('floor','../img/assets/platform.png')
+        this.load.spritesheet('player','../img/assets/dude.png', 32 , 48)
     },
     create: function(){
-        this.game.add.image(0,0,'sky') 
-        this.game.add.sprite(0,0,'star')     
+        var mySelf = this
+        setTimeout(function() {
+            mySelf.state.start('GameTitle')
+        }, 1000);
     }
 }

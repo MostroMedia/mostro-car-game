@@ -1,16 +1,15 @@
-var boot = function (game) {
-    console.log("hola from boot")
-}
+var boot = function (game) {}
 
 boot.prototype = {
     preload: function(){
+        this.load.image('preloadbar','../img/fav-icon-mostro.png')
     },
     create: function(){
-        this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-        this.scale.pageAlignHorizontally = true;
+        this.game.stage.backgroundColor='#fff'
+        this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
+        this.scale.pageAlignHorizontally = true
         this.scale.hasPhaserSetFullScreen = true
-        console.log(this.scale)
-        this.game.state.start("Preload")
+        this.state.start("Preload")
     }
 }
 
