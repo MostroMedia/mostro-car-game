@@ -8,7 +8,8 @@
     <title>Mostro Car Game</title>
     <style>
         body{
-            margin: 0
+            margin: 0;
+            background-color: teal
         }
     </style>
 </head>
@@ -17,7 +18,7 @@
     <script type="text/javascript" src="js/gamecontroller.js"></script>
     <script>
         window.onload = function () {
-            var game = new Phaser.Game(800,600, Phaser.CANVAS, "game")
+            var game = new Phaser.Game(800,600, Phaser.CANVAS, "game","",true)
             game.state.add("Boot", boot)
             game.state.add("Preload",preload)
             game.state.add("GameTitle",gameTitle)
