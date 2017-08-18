@@ -9,6 +9,7 @@ preload.prototype = {
         this.load.image('sky','../img/assets/sky.png')
         this.load.image('playButton', '../img/assets/start-button.png')
         this.load.image('floor','../img/assets/floor.png')
+        this.load.image('star','../img/assets/star.png')
         this.load.spritesheet('player','../img/assets/dude.png', 32 , 48)
     },
     create: function(){
