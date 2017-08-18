@@ -34,7 +34,7 @@ theGame.prototype = {
         this.game.camera.follow(this.player)
     },
     update: function(){
-        this.physics.arcade.collide(this.player,this.floors, this.playerHit, null, this)
+        this.physics.arcade.collide(this.player,this.floors, this.playerDead, null, this)
 
         if(this.player.alive){
             if(this.player.body.touching.down){
@@ -46,14 +46,28 @@ theGame.prototype = {
             if(this.cursors.up.isDown){
                 this.playerJump()
             }
+            if(this.player.x <= -this.tileSize){
+                this.game.start('TheGame')
+            }
+            if(this.player.y >= this.player.world.height + this.tileSize){
+                this.game.state.start('TheGame')
+            }
+
         }
+        this.moreFloor()
         
     },
-    playerHit: function (){
-
+    playerDead: function (player){
+        if(player.body.touching.right){
+            this.player.alive = false
+            this.player.body.velocity.x = 0
+        }
+    },
+    moreFloor: function(){
+        
     },
     initGameController: function(){
-        console.log(GameController.hasInitiated)
+    
         if(!GameController.hasInitiated){
             var self = this
             GameController.init({
@@ -82,7 +96,7 @@ theGame.prototype = {
     },
     playerJump: function(){
         if(this.player.body.touching.down){
-            this.player.body.velocity.y -= 200 
+            this.player.body.velocity.y -= 300 
         }     
     },
     render: function(){
