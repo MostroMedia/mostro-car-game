@@ -7,7 +7,7 @@ theGame.prototype = {
     create: function(){
         var myFloor
         this.tileSize = 30
-        this.levelSpeed = -100
+        this.levelSpeed = -150
 
         this.floors = this.add.group()
         this.floors.enableBody = true
@@ -29,27 +29,64 @@ theGame.prototype = {
 
         this.cursors = this.game.input.keyboard.createCursorKeys()
 
+        this.initGameController()
+
         this.game.camera.follow(this.player)
     },
     update: function(){
-        this.physics.arcade.collide(this.player,this.floors)
+        this.physics.arcade.collide(this.player,this.floors, this.playerHit, null, this)
 
-        this.player.body.velocity.x = 0
-
-        if(this.cursors.right.isDown){
-            this.player.body.velocity.x = 150
-            this.player.animations.play('right')
-
-        }else if(this.cursors.left.isDown){
-            this.player.body.velocity.x = -150
-            this.player.animations.play('left')
-        }else{
-            this.player.animations.stop()
-            this.player.frame = 4
+        if(this.player.alive){
+            if(this.player.body.touching.down){
+                this.player.body.velocity.x = -this.levelSpeed
+                this.player.animations.play('right')  
+            }else{
+                this.player.body.velocity.x = 0
+            }
+            if(this.cursors.up.isDown){
+                this.playerJump()
+            }
         }
+        
+    },
+    playerHit: function (){
 
-        if(this.cursors.isDown && this.player.touching.down){
-            this.player.velocity.y = -350
+    },
+    initGameController: function(){
+        console.log(GameController.hasInitiated)
+        if(!GameController.hasInitiated){
+            var self = this
+            GameController.init({
+                right: {
+                    type: 'none', 
+                },
+                left:{
+                    type: 'buttons',
+                    buttons: [
+                        false,
+                        {
+                            label: 'A',
+                            touchStart: function(){
+                                if(!self.player.alive){
+                                    return
+                                }
+                                self.playerJump()
+                            }
+                        }
+                    ]
+                    
+                }
+            })
+            GameController.hasInitiated = true
         }
+    },
+    playerJump: function(){
+        if(this.player.body.touching.down){
+            this.player.body.velocity.y -= 200 
+        }     
+    },
+    render: function(){
+        // this.game.debug.cameraInfo(game.camera, 32, 32);
+        // this.game.debug.spriteCoords(player, 32, 500);
     }
 }
