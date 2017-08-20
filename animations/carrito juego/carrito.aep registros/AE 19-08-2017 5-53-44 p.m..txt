@@ -1,0 +1,12 @@
+El registro de procesamiento de Adobe After Effects v14.0.1 Windows 64 para el procesamiento del proyecto "carrito.aep"
+
+ se inició en 19/08/2017 a las 5:53:44 p.m.
+
+  19/08/2017 5:53:44 p.m.: Iniciando composición "transformer".
+
+  Salida a: Z:\Crishood\Imágenes\MM\carrito juego\transformer\transformer_[#####].png    19/08/2017 5:53:44 p.m.: Composición finalizada "transformer".
+
+
+  Tiempo total transc.: 0 segundos
+Registro cerrado en 19/08/2017 a las 5:53:44 p.m.
+

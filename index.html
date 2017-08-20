@@ -9,7 +9,7 @@
     <style>
         body{
             margin: 0;
-            background-color: teal
+            background-color: #363636
         }
     </style>
 </head>
@@ -18,7 +18,7 @@
     <script type="text/javascript" src="js/gamecontroller.js"></script>
     <script>
         window.onload = function () {
-            var game = new Phaser.Game(800,600, Phaser.CANVAS, "game","",true)
+            var game = new Phaser.Game(600,600, Phaser.CANVAS, "game","",true)
             game.state.add("Boot", boot)
             game.state.add("Preload",preload)
             game.state.add("GameTitle",gameTitle)

@@ -15,8 +15,6 @@ theGame.prototype = {
         this.floors = this.add.group()
         this.floors.enableBody = true
 
-        //this.add.image(0,0,'sky')
-
         for(var i=0; i<30; i++){
             myFloor = this.floors.create(i * this.tileSize, this.game.world.height - this.tileSize, 'floor')
             myFloor.body.immovable = true
@@ -28,33 +26,31 @@ theGame.prototype = {
         this.lastCliff = false
         this.lastVertical = false
 
-        console.log(this.lastFloor)
-
         this.verticalObstacles = this.game.add.group();
         this.verticalObstacles.enableBody = true;
         this.verticalObstacles.createMultiple(12, 'star');
         this.verticalObstacles.setAll('checkWorldBounds', true);
         this.verticalObstacles.setAll('outOfBoundsKill', true);
 
-
-        this.player = this.game.add.sprite(250,320, 'player')
+        this.player = this.game.add.sprite(230,310, 'player')
         this.game.physics.arcade.enable(this.player)
         this.player.body.gravity.y = 300
+        this.player.scale.setTo(0.4)
 
-        this.player.animations.add('left',[0,1,2,3],10,true)
-        this.player.animations.add('right',[5,6,7,8],10,true)
+        this.player.animations.add('left',[0,1],10,true)
+        this.player.animations.add('right',[3,4],10,true)
 
         this.cursors = this.game.input.keyboard.createCursorKeys()
 
         this.initGameController()
 
         this.game.camera.follow(this.player)
+
     },
     update: function(){
         this.physics.arcade.collide(this.player,this.floors, this.playerDead, null, this)
         this.game.physics.arcade.collide(this.player, this.verticalObstacles, this.playerHit, null, this);
-
-
+        
         if(this.player.alive){
             if(this.player.body.touching.down){
                 this.player.body.velocity.x = -this.levelSpeed
@@ -98,7 +94,7 @@ theGame.prototype = {
                 this.lastCliff = false
                 this.lastVertical = true
                 block = this.verticalObstacles.getFirstExists(false)
-                block.reset(this.lastFloor.body.x + this.tileSize, this.game.world.height - 3 * this.tileSize);
+                block.reset(this.lastFloor.body.x + this.tileSize, this.game.world.height - 3 * this.tileSize)
                 block.body.velocity.x = this.levelSpeed
                 block.body.immovable = true
 
@@ -113,12 +109,12 @@ theGame.prototype = {
 
             }
             else {
-            this.lastCliff = false;
-            this.lastVertical = false;
+            this.lastCliff = false
+            this.lastVertical = false
             }
             this.floors.getAt(i).body.x = this.lastFloor.body.x + this.tileSize + delta * this.tileSize * 1
             this.lastFloor = this.floors.getAt(i)
-            break;
+            break
         }
         }
     },

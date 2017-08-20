@@ -5,7 +5,6 @@ boot.prototype = {
         this.load.image('preloadbar','../img/fav-icon-mostro.png')
     },
     create: function(){
-        // this.game.stage.backgroundColor='rgba(255,0,0,0.5)'
         this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
         this.scale.pageAlignHorizontally = true
         this.scale.hasPhaserSetFullScreen = true
