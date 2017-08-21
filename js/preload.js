@@ -11,6 +11,7 @@ preload.prototype = {
         this.load.spritesheet('playButton','../img/ciclo/transform.png', 500 , 500)
         this.load.image('floor','../img/assets/floor1.png')
         this.load.image('star','../img/assets/star.png')
+        this.load.image('ruby','../img/assets/diamond.png')
         this.load.spritesheet('player','../img/ciclo/cycle.png', 200 , 200)
     },
     create: function(){

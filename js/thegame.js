@@ -8,9 +8,9 @@ theGame.prototype = {
         var myFloor
         this.tileSize = 30
         this.levelSpeed = -150
-        this.probCliff = 0.4
-        this.probVertical = 0.4
-        this.probMoreVertical = 0.5
+        this.aprxDistance = 0.4
+        this.preObstacle = 0.4
+        this.posObstacle = 0.5
 
         this.floors = this.add.group()
         this.floors.enableBody = true
@@ -22,16 +22,15 @@ theGame.prototype = {
         }
 
         this.lastFloor = myFloor
-        
-        this.myObstacles = this.game.add.image(400,530,'star')
-        this.game.physics.arcade.enable(this.myObstacles)
 
-        // this.myObstacles = this.game.add.group()
-        // this.myObstacles.enableBody = true
+        this.lastObstacle = false
+        this.lastDistance = false
 
-        // for(var i=0;i<12;i++){
-        //     var myObstacle = this.myObstacles.create(i * 70, 300, 'star')
-        // }
+        this.myObstacles = this.game.add.group()
+        this.myObstacles.enableBody = true
+        this.myObstacles.createMultiple(12, 'floor')
+        this.myObstacles.setAll('ruby', true)
+        this.myObstacles.setAll('ruby', true)
 
         this.player = this.game.add.sprite(230,310, 'player')
         this.game.physics.arcade.enable(this.player)
@@ -63,7 +62,7 @@ theGame.prototype = {
                 this.playerJump()
             }
             if(this.player.x <= -this.tileSize){
-                this.game.start('TheGame')
+                this.game.state.start('TheGame')
             }
             if(this.player.y >= this.player.world.height + this.tileSize){
                 this.game.state.start('TheGame')
@@ -79,11 +78,41 @@ theGame.prototype = {
         }
     },
     moreFloor: function(){
-        var i, delta = 0
+        var i, delta = 0, obstacle
         
         for(i = 0; i < this.floors.length; i++) {
             
         if(this.floors.getAt(i).body.x <= -this.tileSize) {
+
+            if(Math.random() < this.aprxDistance && !this.lastDistance && !this.lastObstacle){
+                delta = 1
+                this.lastDistance = true
+                this.lastObstacle = false
+
+            }else if(Math.random() < this.preObstacle && !this.lastDistance){
+                this.lastDistance = false
+                this.lastObstacle = true
+
+                if(obstacle){
+                    obstacle = this.myObstacles.getFirstExists(false)
+                    obstacle.reset(this.lastFloor.body.x + this.tileSize,this.game.world.height - 3 * this.tileSize)
+                    obstacle.body.velocity.x = this.levelSpeed
+                    obstacle.body.immovable = true
+                }
+                
+                if(Math.random() < this.posObstacle){
+                    obstacle = this.myObstacles.getFirstExists(false)
+
+                    if(obstacle){
+                        obstacle.reset(this.lastFloor.body.x + this.tileSize,this.game.world.height - 4 * this.tileSize)
+                        obstacle.body.velocity.x = this.levelSpeed
+                        obstacle.body.immovable = true
+                    }
+                }
+            }else{
+                this.lastObstacle = false
+                this.lastDistance = false
+            }
 
             this.floors.getAt(i).body.x = this.lastFloor.body.x + this.tileSize + delta * this.tileSize * 1
             this.lastFloor = this.floors.getAt(i)
