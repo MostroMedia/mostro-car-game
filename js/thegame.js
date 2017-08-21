@@ -22,6 +22,16 @@ theGame.prototype = {
         }
 
         this.lastFloor = myFloor
+        
+        this.myObstacles = this.game.add.image(400,530,'star')
+        this.game.physics.arcade.enable(this.myObstacles)
+
+        // this.myObstacles = this.game.add.group()
+        // this.myObstacles.enableBody = true
+
+        // for(var i=0;i<12;i++){
+        //     var myObstacle = this.myObstacles.create(i * 70, 300, 'star')
+        // }
 
         this.player = this.game.add.sprite(230,310, 'player')
         this.game.physics.arcade.enable(this.player)
@@ -40,6 +50,7 @@ theGame.prototype = {
     },
     update: function(){
         this.physics.arcade.collide(this.player,this.floors, this.playerDead, null, this)
+        this.physics.arcade.overlap(this.player,this.myObstacles,this.playerDead,null,this)
 
         if(this.player.alive){
             if(this.player.body.touching.down){
@@ -68,7 +79,7 @@ theGame.prototype = {
         }
     },
     moreFloor: function(){
-        var i, delta = 0, block
+        var i, delta = 0
         
         for(i = 0; i < this.floors.length; i++) {
             
