@@ -49,7 +49,7 @@ theGame.prototype = {
     },
     update: function(){
         this.physics.arcade.collide(this.player,this.floors, this.playerDead, null, this)
-        this.physics.arcade.overlap(this.player,this.myObstacles,this.playerDead,null,this)
+        this.physics.arcade.collide(this.player,this.myObstacles,this.playerDead,null,this)
 
         if(this.player.alive){
             if(this.player.body.touching.down){
@@ -61,12 +61,13 @@ theGame.prototype = {
             if(this.cursors.up.isDown){
                 this.playerJump()
             }
-            if(this.player.x <= -this.tileSize){
+
+/*             if(this.player.x <= -this.tileSize){
                 this.game.state.start('TheGame')
             }
             if(this.player.y >= this.player.world.height + this.tileSize){
                 this.game.state.start('TheGame')
-            }
+            } */
         }
         this.moreFloor()
         
@@ -75,7 +76,11 @@ theGame.prototype = {
         if(player.body.touching.right){
             this.player.alive = false
             this.player.body.velocity.x = 0
+            this.game.time.events.add(1000, this.goToGameOver, this)
         }
+    },
+    goToGameOver: function(){
+        this.game.state.start("GameOver")
     },
     moreFloor: function(){
         var i, delta = 0, obstacle

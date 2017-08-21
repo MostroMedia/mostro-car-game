@@ -10,7 +10,7 @@ gameTitle.prototype = {
             var myself = this
             setTimeout(function() {
                 myself.game.state.start('TheGame')
-            }, 1000);
+            }, 1000)
             
         }
 
