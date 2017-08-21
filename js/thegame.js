@@ -23,15 +23,6 @@ theGame.prototype = {
 
         this.lastFloor = myFloor
 
-        this.lastCliff = false
-        this.lastVertical = false
-
-        this.verticalObstacles = this.game.add.group();
-        this.verticalObstacles.enableBody = true;
-        this.verticalObstacles.createMultiple(12, 'star');
-        this.verticalObstacles.setAll('checkWorldBounds', true);
-        this.verticalObstacles.setAll('outOfBoundsKill', true);
-
         this.player = this.game.add.sprite(230,310, 'player')
         this.game.physics.arcade.enable(this.player)
         this.player.body.gravity.y = 300
@@ -49,8 +40,7 @@ theGame.prototype = {
     },
     update: function(){
         this.physics.arcade.collide(this.player,this.floors, this.playerDead, null, this)
-        this.game.physics.arcade.collide(this.player, this.verticalObstacles, this.playerHit, null, this);
-        
+
         if(this.player.alive){
             if(this.player.body.touching.down){
                 this.player.body.velocity.x = -this.levelSpeed
@@ -67,7 +57,6 @@ theGame.prototype = {
             if(this.player.y >= this.player.world.height + this.tileSize){
                 this.game.state.start('TheGame')
             }
-
         }
         this.moreFloor()
         
@@ -85,33 +74,6 @@ theGame.prototype = {
             
         if(this.floors.getAt(i).body.x <= -this.tileSize) {
 
-            if(Math.random() < this.probCliff && !this.lastCliff && !this.lastVertical) {
-                delta = 1;
-                this.lastCliff = true
-                this.lastVertical = false
-            }
-             else if(Math.random() < this.probVertical && !this.lastCliff) {
-                this.lastCliff = false
-                this.lastVertical = true
-                block = this.verticalObstacles.getFirstExists(false)
-                block.reset(this.lastFloor.body.x + this.tileSize, this.game.world.height - 3 * this.tileSize)
-                block.body.velocity.x = this.levelSpeed
-                block.body.immovable = true
-
-            if(Math.random() < this.probMoreVertical) {
-                block = this.verticalObstacles.getFirstExists(false)
-                if(block) {
-                block.reset(this.lastFloor.body.x + this.tileSize, this.game.world.height - 4 * this.tileSize)
-                block.body.velocity.x = this.levelSpeed
-                block.body.immovable = true
-                }            
-            } 
-
-            }
-            else {
-            this.lastCliff = false
-            this.lastVertical = false
-            }
             this.floors.getAt(i).body.x = this.lastFloor.body.x + this.tileSize + delta * this.tileSize * 1
             this.lastFloor = this.floors.getAt(i)
             break
