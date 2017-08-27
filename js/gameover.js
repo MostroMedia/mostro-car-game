@@ -2,17 +2,16 @@ var gameOver = function (game) {}
 
 gameOver.prototype = {
     create: function () {
-        console.log(localStorage.getItem('highScore'))
-        this.game.add.image(this.game.world.centerX/2,this.game.world.centerY/2,'gameOverTitle')
         
-        var mbutton = this.game.add.button(0,400,'startAgain', onClickPlayAgain,this)
-        mbutton.scale.setTo(0.2)
+        this.game.add.image(this.game.world.centerX/2.5,this.game.world.centerY/2,'gameOverTitle')
+        var results = this.game.add.text(this.game.world.centerX,(this.game.world.centerY/2) + 200, 'Tu puntaje es ' + localStorage.getItem('highScore'), { fontSize: '15px', fill: '#fff' } )
+        results.anchor.set(0.5)
 
-
-        function onClickPlayAgain(){
-            console.log("Hola")
-            this.game.state.start("TheGame")
-        }
+        // var myself = this
+        // setTimeout(function() {
+        //     myself.game.state.start('TheGame')
+        // }, 2000)
+            
     },
     update: function(){
 
