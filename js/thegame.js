@@ -49,7 +49,7 @@ theGame.prototype = {
 
         this.game.camera.follow(this.player)
 
-        this.scoreText = this.game.add.text(16,16, 'Puntaje 0', { fontSize: '35px', fill: '#fff' } )
+        this.scoreText = this.game.add.text(16,16, 'Puntaje 0', { fontSize: '15px', fill: '#fff' } )
 
     },
     update: function(){
@@ -58,7 +58,8 @@ theGame.prototype = {
         
         if(this.player.alive){
             this.score += 1
-            this.scoreText.text = 'Puntaje ' + this.score            
+            localStorage.setItem('highScore', this.score)
+            this.scoreText.text = 'Puntaje ' + localStorage.getItem('highScore')           
             if(this.player.body.touching.down){
                 this.player.body.velocity.x = -this.levelSpeed
                 this.player.animations.play('right')
