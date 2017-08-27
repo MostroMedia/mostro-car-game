@@ -10,7 +10,11 @@ preload.prototype = {
         this.load.image('sky','../img/assets/sky.png')
         this.load.spritesheet('playButton','../img/ciclo/transform.png', 500 , 500)
         this.load.image('floor','../img/assets/floor1.png')
+        this.load.image('alien','../img/assets/alien.png')
         this.load.image('star','../img/assets/star.png')
+        this.load.spritesheet('dead','../img/ciclo/dead.png')
+        this.load.image('gameOverTitle','../img/assets/gameOverTitle.png')
+        this.load.image('startAgain','../img/assets/start-again.png')
         this.load.image('ruby','../img/assets/diamond.png')
         this.load.spritesheet('player','../img/ciclo/cycle.png', 200 , 200)
     },
