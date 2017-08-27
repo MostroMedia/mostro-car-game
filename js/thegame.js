@@ -49,8 +49,13 @@ theGame.prototype = {
 
         this.game.camera.follow(this.player)
 
+        this.game.input.onDown.add(jumpPlayer,this)
+
         this.scoreText = this.game.add.text(16,16, 'Puntaje 0', { fontSize: '15px', fill: '#fff' } )
 
+        function jumpPlayer(pointer){
+            console.log("holii")
+        }
     },
     update: function(){
         this.physics.arcade.collide(this.player,this.floors, this.playerDead, null, this)
