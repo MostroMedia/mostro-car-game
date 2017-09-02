@@ -1,6 +1,4 @@
-var theGame = function (game) {
-    button= 0;
-}
+var theGame = function (game) {}
 
 var myFloor
 
@@ -72,9 +70,6 @@ theGame.prototype = {
         }
         this.moreFloor()
         
-    },
-    actionOnClick: function(){
-        console.log("Hi")
     },
     playerDead: function (player){
         if(player.body.touching.right){

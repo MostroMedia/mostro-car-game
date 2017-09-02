@@ -7,13 +7,11 @@ gameOver.prototype = {
         var results = this.game.add.text(this.game.world.centerX,(this.game.world.centerY/2) + 200, 'Tu puntaje es ' + localStorage.getItem('highScore'), { fontSize: '15px', fill: '#fff' } )
         results.anchor.set(0.5)
 
-        // var myself = this
-        // setTimeout(function() {
-        //     myself.game.state.start('TheGame')
-        // }, 2000)
+        this.button = this.game.add.button((this.game.world.centerX/2) + 100,this.game.world.centerY ,'startAgain', this.playGame,this)
+        this.button.scale.setTo(0.2)
             
     },
-    update: function(){
-
+    playGame: function(){
+        this.game.state.start('TheGame')
     }
 }
