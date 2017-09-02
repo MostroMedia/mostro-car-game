@@ -2,7 +2,7 @@ var boot = function (game) {}
 
 boot.prototype = {
     preload: function(){
-        this.load.image('preloadbar','img/fav-icon-mostro.png')
+        
     },
     create: function(){
         this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL

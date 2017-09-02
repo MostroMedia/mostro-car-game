@@ -1,4 +1,6 @@
-var theGame = function (game) {}
+var theGame = function (game) {
+    button= 0;
+}
 
 var myFloor
 
@@ -45,17 +47,10 @@ theGame.prototype = {
 
         this.cursors = this.game.input.keyboard.createCursorKeys()
 
-        this.initGameController()
-
         this.game.camera.follow(this.player)
-
-        this.game.input.onDown.add(jumpPlayer,this)
 
         this.scoreText = this.game.add.text(16,16, 'Puntaje 0', { fontSize: '15px', fill: '#fff' } )
 
-        function jumpPlayer(pointer){
-            console.log("holii")
-        }
     },
     update: function(){
         this.physics.arcade.collide(this.player,this.floors, this.playerDead, null, this)
@@ -71,12 +66,15 @@ theGame.prototype = {
             }else{
                 this.player.body.velocity.x = 0
             }
-            if(this.cursors.up.isDown){
+            if(this.cursors.up.isDown || this.game.input.pointer1.isDown){
                 this.playerJump()
             }
         }
         this.moreFloor()
         
+    },
+    actionOnClick: function(){
+        console.log("Hi")
     },
     playerDead: function (player){
         if(player.body.touching.right){
@@ -131,34 +129,6 @@ theGame.prototype = {
             this.lastFloor = this.floors.getAt(i)
             break
         }
-        }
-    },
-    initGameController: function(){
-    
-        if(!GameController.hasInitiated){
-            var self = this
-            GameController.init({
-                right: {
-                    type: 'none', 
-                },
-                left:{
-                    type: 'buttons',
-                    buttons: [
-                        false,
-                        {
-                            label: 'A',
-                            touchStart: function(){
-                                if(!self.player.alive){
-                                    return
-                                }
-                                self.playerJump()
-                            }
-                        }
-                    ]
-                    
-                }
-            })
-            GameController.hasInitiated = true
         }
     },
     playerJump: function(){
