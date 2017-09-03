@@ -9,12 +9,12 @@ theGame.prototype = {
     create: function(){
         
         this.tileSize = 30
-        this.levelSpeed = -150
+        this.levelSpeed = -200
         this.aprxDistance = 0.4
         this.preObstacle = 0.4
         this.posObstacle = 0.5
         this.score = 0
-
+        
         this.floors = this.add.group()
         this.floors.enableBody = true
 
@@ -53,11 +53,13 @@ theGame.prototype = {
     update: function(){
         this.physics.arcade.collide(this.player,this.floors, this.playerDead, null, this)
         this.physics.arcade.collide(this.player,this.myObstacles,this.playerDead,null,this)
-        
+
         if(this.player.alive){
             this.score += 1
             localStorage.setItem('highScore', this.score)
-            this.scoreText.text = 'Puntaje ' + localStorage.getItem('highScore')           
+            this.scoreText.text = 'Puntaje ' + localStorage.getItem('highScore')  
+            
+            
             if(this.player.body.touching.down){
                 this.player.body.velocity.x = -this.levelSpeed
                 this.player.animations.play('right')
@@ -67,6 +69,8 @@ theGame.prototype = {
             if(this.cursors.up.isDown || this.game.input.pointer1.isDown){
                 this.playerJump()
             }
+
+
         }
         this.moreFloor()
         

@@ -12,6 +12,7 @@ preload.prototype = {
         this.load.spritesheet('dead','img/ciclo/dead.png')
         this.load.image('gameOverTitle','img/assets/gameOverTitle.png')
         this.load.image('startAgain','img/assets/start-again.png')
+        this.load.image('startAgainHover','img/assets/start-again-hover.png')
         this.load.image('ruby','img/assets/diamond.png')
         this.load.spritesheet('player','img/ciclo/cycle.png', 200 , 200)
     },
